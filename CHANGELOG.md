@@ -7,6 +7,9 @@
 - Added support for resolving superclass properties for not-NSObject subclasses
 - The `{% for %}` tag can now iterate over tuples, structures and classes via
   their stored properties.
+- It's now possible to resolve superclass properties for not-NSObject subclasses
+- Boolean expressions can be now rendered, i.e. `{{ this == that }}` will render `true` if variables are equal 
+- It's now possible to use boolean literals in boolean expressions, i.e. `{% if true %}`
 
 ### Bug Fixes
 
