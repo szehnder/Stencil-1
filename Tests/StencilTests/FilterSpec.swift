@@ -199,4 +199,42 @@ func testFilter() {
     }
   }
 
+  describe("map filter") {
+
+    $0.it("can map over attribute") {
+      let template = Template(templateString: "{{ array|map:\"name\"}}")
+      let result = try template.render(Context(dictionary: ["array": [["name": "One"], ["name": "Two"], [:]]]))
+      try expect(result) == "[\"One\", \"Two\", nil]"
+    }
+
+    $0.it("can map over runtime attribute") {
+      let template = Template(templateString: "{{ array|map:key}}")
+      let result = try template.render(Context(dictionary: ["key": "name", "array": [["name": "One"], ["name": "Two"]]]))
+      try expect(result) == "[\"One\", \"Two\"]"
+    }
+
+    $0.it("can use default value") {
+      let template = Template(templateString: "{{ array|map:\"name\",\"anonymous\"}}")
+      let result = try template.render(Context(dictionary: ["array": [[:], ["name": "Two"]]]))
+      try expect(result) == "[\"anonymous\", \"Two\"]"
+    }
+
+  }
+
+  describe("compact filter") {
+
+    $0.it("can filter nil values") {
+      let template = Template(templateString: "{{ array|compact}}")
+      let result = try template.render(Context(dictionary: ["array": [nil, "Two"]]))
+      try expect(result) == "[\"Two\"]"
+    }
+
+    $0.it("can map and filter nil values") {
+      let template = Template(templateString: "{{ array|compact:\"name\"}}")
+      let result = try template.render(Context(dictionary: ["array": [["name": "One"], ["name": "Two"], [:]]]))
+      try expect(result) == "[\"One\", \"Two\"]"
+    }
+
+  }
+
 }
