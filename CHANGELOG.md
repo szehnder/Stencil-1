@@ -10,6 +10,7 @@
 - Added `split` filter
 - Allow default string filters to be applied to arrays
 - Similar filters are suggested when unknown filter is used
+- Added support for ranges in if-in expression
 
 ### Bug Fixes
 
