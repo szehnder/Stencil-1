@@ -10,6 +10,7 @@
 - Added `split` filter
 - Allow default string filters to be applied to arrays
 - Similar filters are suggested when unknown filter is used
+- Now you can construct ranges for loops using `a...b` syntax, i.e. `for i in 1...array.count`
 
 ### Bug Fixes
 
