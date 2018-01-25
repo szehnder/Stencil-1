@@ -7,7 +7,7 @@ struct Lexer {
 
   func createToken(string: String) -> Token {
     func strip() -> String {
-      guard string.characters.count > 4 else { return "" }
+      guard string.count > 4 else { return "" }
       let start = string.index(string.startIndex, offsetBy: 2)
       let end = string.index(string.endIndex, offsetBy: -2)
       return String(string[start..<end]).trim(character: " ")
@@ -74,14 +74,14 @@ class Scanner {
 
     var index = content.startIndex
     while index != content.endIndex {
-      let substring = content.substring(from: index)
+      let substring = String(content[index..<content.endIndex])
 
       if substring.hasPrefix(until) {
-        let result = content.substring(to: index)
+        let result = String(content[content.startIndex..<index])
         content = substring
 
         if returnUntil {
-          content = content.substring(from: until.endIndex)
+          content = String(content[until.endIndex...])
           return result + until
         }
 
@@ -102,10 +102,10 @@ class Scanner {
 
     var index = content.startIndex
     while index != content.endIndex {
-      let substring = content.substring(from: index)
+      let substring = String(content[index..<content.endIndex])
       for string in until {
         if substring.hasPrefix(string) {
-          let result = content.substring(to: index)
+          let result = String(content[content.startIndex..<index])
           content = substring
           return (string, result)
         }
