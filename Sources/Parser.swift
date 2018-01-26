@@ -102,7 +102,7 @@ public class TokenParser {
     let filtersWithDistance = allFilters
                 .map({ (filterName: $0, distance: $0.levenshteinDistance(name)) })
                 // do not suggest filters which names are shorter than the distance
-                .filter({ $0.filterName.characters.count > $0.distance })
+                .filter({ $0.filterName.count > $0.distance })
     guard let minDistance = filtersWithDistance.min(by: { $0.distance < $1.distance })?.distance else {
       return []
     }
@@ -133,7 +133,7 @@ extension String {
     last = [Int](0...target.count)
     current = [Int](repeating: 0, count: target.count + 1)
 
-    for i in 0..<self.characters.count {
+    for i in 0..<self.count {
       // calculate v1 (current row distances) from the previous row v0
 
       // first element of v1 is A[i+1][0]
